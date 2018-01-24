@@ -955,6 +955,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   usernameTxt: {fileID: 1227408324}
   passwordTxt: {fileID: 1059608659}
+  uName: {fileID: 0}
+  pWord: {fileID: 0}
 --- !u!4 &1411426681
 Transform:
   m_ObjectHideFlags: 0
@@ -979,7 +981,7 @@ GameObject:
   - component: {fileID: 1419070637}
   - component: {fileID: 1419070636}
   m_Layer: 5
-  m_Name: Text
+  m_Name: pwordText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1178,6 +1180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   usernameTxt: {fileID: 0}
   passwordTxt: {fileID: 0}
+  uName: {fileID: 0}
+  pWord: {fileID: 0}
 --- !u!1 &1783032550
 GameObject:
   m_ObjectHideFlags: 0

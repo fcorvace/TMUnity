@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+//using UnityEngine.EditorSceneManagement;
 using UnityEngine.UI; // Required when Using UI elements.
 using UnityEngine;
 
@@ -12,13 +14,10 @@ public class loginMenu : MonoBehaviour {
 
     public InputField usernameTxt;
     public InputField passwordTxt;
-    public GameObject uName;
-    public GameObject pWord;
+    public Text outputTxt;
 
     public void LoginAccess()
     {
-        string uName2 = "";
-        string pWord2 = "";
         string userName = usernameTxt.text + ";" + CalculateMD5Hash(passwordTxt.text);
         int i = 0;
 
@@ -26,12 +25,8 @@ public class loginMenu : MonoBehaviour {
         System.Net.IPAddress ipAdd = System.Net.IPAddress.Parse("192.168.1.157");
         System.Net.IPEndPoint remoteEP = new IPEndPoint(ipAdd, 10000);
         soc.Connect(remoteEP);
+        outputTxt.text = "Connectected to server, authenticating...";
 
-        /*uName = GameObject.Find("unameText");
-        uName2 = uName.GetComponent<Text>().text;
-        pWord = GameObject.Find("pwordText");
-        pWord2 = pWord.GetComponent<Text>().text;
-        pWord2 = CalculateMD5Hash(pWord2);*/
         i++;
 
         byte[] byData = System.Text.Encoding.ASCII.GetBytes(userName);
@@ -44,6 +39,19 @@ public class loginMenu : MonoBehaviour {
         System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
         int charLen = d.GetChars(buffer, 0, iRx, chars, 0);
         System.String recv = new System.String(chars);
+        if(recv == "s")
+        {
+            outputTxt.text = "Connection Success! Logging in...";
+            //SceneManager.UnloadScene("scena");
+            //SceneManager.LoadScene("mainScreen", LoadSceneMode.Additive);
+            SceneManager.LoadScene("mainScreen", LoadSceneMode.Single);
+            //SceneManager.UnloadSceneAsync("scena");
+            //EditorSceneManager.
+        }
+        else
+        {
+            outputTxt.text = "Invalid Username or Password, try again.";
+        }
     }
 
     public string CalculateMD5Hash(string input)

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-//using UnityEngine.EditorSceneManagement;
 using UnityEngine.UI; // Required when Using UI elements.
 using UnityEngine;
 
@@ -42,11 +41,7 @@ public class loginMenu : MonoBehaviour {
         if(recv == "s")
         {
             outputTxt.text = "Connection Success! Logging in...";
-            //SceneManager.UnloadScene("scena");
-            //SceneManager.LoadScene("mainScreen", LoadSceneMode.Additive);
             SceneManager.LoadScene("mainScreen", LoadSceneMode.Single);
-            //SceneManager.UnloadSceneAsync("scena");
-            //EditorSceneManager.
         }
         else
         {

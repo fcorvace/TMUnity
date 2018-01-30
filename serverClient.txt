@@ -1,0 +1,9 @@
+On connection the server starts a new thread;
+At first there is a login sequence, after that the client has to send every 50 seconds a keep alive;
+Meanwhile if the server hasn't received data in the last 60 seconds since the last data, kills the thread.
+
+On successful login, the server writes a new random key in the dbtable, sending it to the user too; Every other connection from that user, until the next login, will need that key to "auth" the user, removing need to auth at every data exchange.
+
+User can enter the game pool, on game found the new game scene is triggered by the server, a new thread for the game is started and the player will remain in this scene exchanging info with the newGameThread.
+
+http://www.techbeamers.com/python-tutorial-write-multithreaded-python-server/

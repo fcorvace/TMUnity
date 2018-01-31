@@ -2,6 +2,7 @@ import mysql.connector
 import socket
 import sys
 import time
+import copy
 from threading import Thread
 from queue import Queue
 
@@ -20,12 +21,24 @@ print('Socket listening!\n')
                 
 # Player Pool thread
 def pPool(in_q):
+    players = []
     while True:
         # Get some data
-        data = in_q.get()
-        print('data received!')
-        data.send(b's')
-        # Process the data
+        if in_q.empty() != True:
+          print('thread data present in queue!')
+          #questa get aspetta finchè non arriva qualcosa.
+          data = in_q.get()
+          players.append(data)
+          print('thread data received!')
+          data.send(b's')
+          time.sleep(5)
+          print('thread sending other data')
+          data.send(b'prova')
+          # Process the data
+        #here process every player and do something.
+        for pl in player:
+          #manage each player
+          #print pl
                 
 if __name__ == "__main__":
 
@@ -47,13 +60,14 @@ if __name__ == "__main__":
       # Wait for a connection
       print('waiting for a connection')
       connection, client_address = sock.accept()
+      newCon = connection
       
       try:
         print('connection from', client_address)
     
         # Receive the data in small chunks and retransmit it
         while True:
-            data = connection.recv(1400)
+            data = newCon.recv(1400)
             print('received ', data)
             stri = data.decode("utf-8")
             print('converted to ', stri)
@@ -70,15 +84,14 @@ if __name__ == "__main__":
             else:
               if ulti == pWord:
                   print('Connection success')
-                  #connection.send(b's')
-                  q.put(connection)
-                  time.sleep(0.1)
+                  q.put(newCon)
                   break
               else:
                   print('Connection fail')
-                  connection.send(b'f')
+                  newCon.send(b'f')
                   break
                 
       finally:
           # Clean up the connection
-          connection.close()
+          print('chiudo la conn')
+          #newCon.close()

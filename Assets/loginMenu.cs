@@ -42,6 +42,13 @@ public class loginMenu : MonoBehaviour {
         {
             outputTxt.text = "Connection Success! Logging in...";
             SceneManager.LoadScene("mainScreen", LoadSceneMode.Single);
+            iRx = soc.Receive(buffer);
+            char[] chars2 = new char[iRx];
+
+            System.Text.Decoder d2 = System.Text.Encoding.UTF8.GetDecoder();
+            int charLen2 = d.GetChars(buffer, 0, iRx, chars2, 0);
+            System.String recv2 = new System.String(chars2);
+            i++;
         }
         else
         {
